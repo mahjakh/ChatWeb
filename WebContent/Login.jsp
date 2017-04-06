@@ -1,4 +1,6 @@
-
+<%@page import="java.net.Socket"%>
+<%@page import="java.io.DataOutputStream"%>
+<%@page import="java.io.DataInputStream"%>
 <html>
 <script>
 function validate(){
@@ -15,13 +17,16 @@ if(password==""){
 return true;
 }
 </script>
-<form name="form" method="post" action="Check.jsp" onsubmit="javascript:return validate();">
+<form name="form" method="post" action=Check.jsp onsubmit="javascript:return validate();">
 <table>
 <tr><td>Username:</td><td><input type="text" name="user"></td></tr>
 <tr><td>Password:</td><td><input type="password" name="pass"></td></tr>
-<tr><td></td><td><input type="submit" value="Login"></td></tr>
+<tr><td></td><td>
+<input type="submit" value="Login"></td></tr>
 <tr><td></td><td><a href="register.jsp">Register Here</a></td></tr>
 </table>
 </form>
+
+
 </html>
 
