@@ -1,12 +1,13 @@
 
-<%@ page import="first.Users" %>
+<%@ page import="first.Users"%>
 
 <%@page import="java.sql.*"%>
 <%
 	String user;
 	String pass;
-	int num=0;
-	
+	HttpSession sess = request.getSession();
+	Users u;
+
 	try {
 		user = request.getParameter("user");
 		pass = request.getParameter("pass");
@@ -23,17 +24,14 @@
 		}
 		if (count > 0) {
 			out.println("welcome " + user);
-			
+
 			//این جا کاربر رو میفرستم
-			Users u=new Users(user,pass);
-			HttpSession sess = request.getSession();
-			sess.setAttribute("user", u);
+			u = new Users(user, pass);
 		
-			
-			
-			num++;
+			sess.setAttribute("user", u);
 
 			
+
 			response.sendRedirect("List.jsp");
 		} else {
 			response.sendRedirect("Login.jsp");

@@ -19,10 +19,12 @@
 
 <%
 ArrayList<Users> list = new ArrayList<Users>();
-HttpSession sess = request.getSession(false); //use false to use the existing session
+HttpSession sess = request.getSession(true); //use false to use the existing session
 Users user=(Users)sess.getAttribute("user");
 list.add(user);
-  
+
+
+
 %>
 
 <form>
