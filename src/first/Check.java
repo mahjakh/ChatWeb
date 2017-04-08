@@ -41,10 +41,10 @@ public class Check extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	 Map<HttpSession, String> sessions = new ConcurrentHashMap<HttpSession, String>();
+	// Map<HttpSession, String> sessions = new ConcurrentHashMap<HttpSession, String>();
 	 ArrayList<String> onlines = new ArrayList<String>();
-	 Set<String> users = new HashSet<String>();
-	 Map<String, String> use = new ConcurrentHashMap<String, String>();
+	// Set<String> users = new HashSet<String>();
+//	 Map<String, String> use = new ConcurrentHashMap<String, String>();
 	String user;
 	String pass;
 
@@ -57,10 +57,11 @@ public class Check extends HttpServlet {
 		user = request.getParameter("user");
 		pass = request.getParameter("pass");
 		
-		for (int i = 0; i < 5; i++) {
+	/*	for (int i = 0; i < 5; i++) {
 			users.add(i + "");
 			use.put(i + "", i + "");
 		}
+		*/
 		// ******
 		
 		

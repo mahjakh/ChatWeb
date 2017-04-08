@@ -7,6 +7,29 @@
 <title>Insert title here</title>
 </head>
 <body>
-Chat
+
+
+
+ 
+
+<form name="form" method="post" action="Message" onsubmit="javascript:return validate();"> 
+  
+<table>
+<tr><td></td><td>
+<textarea  name="message" rows="4" cols="50">
+</textarea></td></tr>
+
+<tr><td></td><td>
+<input type="submit" value="Read Messages"></td>
+<td>
+</td></tr>
+
+
+<tr><td></td><td></td></tr>
+</table>
+
+</form>
+
+
 </body>
 </html>
