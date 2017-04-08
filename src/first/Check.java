@@ -2,7 +2,11 @@ package first;
 
 
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Map;
@@ -20,13 +24,13 @@ import javax.servlet.http.HttpSession;
  * Servlet implementation class ChooseChat
  */
 @WebServlet("/Choosechat")
-public class ChooseChat extends HttpServlet {
+public class Check extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public ChooseChat() {
+	public Check() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -37,10 +41,10 @@ public class ChooseChat extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	private Map<HttpSession, String> sessions = new ConcurrentHashMap<HttpSession, String>();
-	private ArrayList<String> onlines = new ArrayList<String>();
-	private Set<String> users = new HashSet<String>();
-	private Map<String, String> use = new ConcurrentHashMap<String, String>();
+	 Map<HttpSession, String> sessions = new ConcurrentHashMap<HttpSession, String>();
+	 ArrayList<String> onlines = new ArrayList<String>();
+	 Set<String> users = new HashSet<String>();
+	 Map<String, String> use = new ConcurrentHashMap<String, String>();
 	String user;
 	String pass;
 
@@ -49,37 +53,76 @@ public class ChooseChat extends HttpServlet {
 		// TODO Auto-generated method stub
 
 		session.add(num, request.getSession());
-		// if (!session[num].isNew()) {
-		// System.out.println("not new");
-		// session[num].}
+		
 		user = request.getParameter("user");
 		pass = request.getParameter("pass");
-		// } else {
-		// user = (String) session[num].getAttribute("username");
-		// pass = (String) session[num].getAttribute("password");
-		//
-		// }
-		// ******
+		
 		for (int i = 0; i < 5; i++) {
 			users.add(i + "");
 			use.put(i + "", i + "");
 		}
 		// ******
-		if (use.containsKey(user)) {
-			if (use.get(user).equals(pass)) {
-				if (!onlines.contains(user))
+		
+		
+		
+		try {
+			Class.forName("com.mysql.jdbc.Driver").newInstance();
+		} catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Connection con = null;
+		try {
+			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/webchat", "root",
+					"ws8dr8as3");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Statement st = null;
+		try {
+			st = con.createStatement();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		ResultSet rs = null;
+		try {
+			rs = st
+					.executeQuery("select * from users where username='" + user + "' and password='" + pass + "'");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		int count = 0;
+		try {
+			while (rs.next()) {
+				count++;
+
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		if (count > 0) {
+		
+		
+		
+	
 					onlines.add(user);
 				session.get(num).setAttribute("username", user);
 				session.get(num).setAttribute("password", pass);
 				request.setAttribute("list", onlines);
 				request.setAttribute("session", session);
-			//	sessions.put(session.get(num), (String)request.getAttribute("message"));
+			
 				request.getRequestDispatcher("List.jsp").forward(request, response);
 
- 			//	response.getWriter().append("mona :"+(String)session.get(0).getAttribute("message"));
-			//	response.getWriter().append("mona re:"+(String)request.getParameter("message") );
+ 		
 				num++;
-			} else {
+		}
+		}
+				/*
+			 else {
 				String log = "";
 				log += "<html><body><form action='Choosechat'>" + " <center><fieldset>"
 						+ " <p id='demo'> Wrong Password </p></fieldset></center></form></body></html>";
@@ -87,20 +130,40 @@ public class ChooseChat extends HttpServlet {
 				System.out.println("Incorrect password");
 			}
 
-		} else {
+		} 
+			
+			else {
 			String log = "";
 			log += "<html><body><form action='Choosechat'>" + " <center><fieldset>"
 					+ " <p id='demo'> This username has not been registered yet! </p></fieldset></center></form></body></html>";
 			response.getWriter().append(log);
 			System.out.println("not EXIST");
 		}
-
+*/
 		// ***********8
 
 	//	PrintWriter out = response.getWriter();
-		
+		//
+		// String docType =
+		// "<!doctype html public \"-//w3c//dtd html 4.0 " +
+		// "transitional//en\">\n";
+		// out.println(docType +
+		// "<html>\n" +
+		// "<head><title>" + "Online users" + "</title></head>\n" +
+		// "<body bgcolor=\"#f0f0f0\">\n" +
+		// "<h1 align=\"center\">" + "Online users" + "</h1>\n" +
+		//
+		// "<table border=\"1\" align=\"center\">\n" +
+		// "<tr bgcolor=\"#949494\">\n" +
+		// " <th>UserName</th>\n" +
+		// "<tr>\n" +
+		// // for(String online : onlines){
+		// " <td>" +onlines.get(0) + "</td></tr>\n" +
+		// "<tr>\n" +
+		// // }
+		// "</body></html>");
 
-	}
+	
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
@@ -110,6 +173,7 @@ public class ChooseChat extends HttpServlet {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
+		
 	}
 
 }

@@ -17,7 +17,8 @@ if(password==""){
 return true;
 }
 </script>
-<form name="form" method="post" action="Check.jsp" onsubmit="javascript:return validate();">
+<form name="form" method="post" action="Check" onsubmit="javascript:return validate();">
+
 <table>
 <tr><td>Username:</td><td><input type="text" name="user"></td></tr>
 <tr><td>Password:</td><td><input type="password" name="pass"></td></tr>
