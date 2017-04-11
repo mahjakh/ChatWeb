@@ -1,6 +1,8 @@
 package first;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -14,8 +16,9 @@ import javax.servlet.http.HttpServletResponse;
 public class Message extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	String getmessage = "";
-	/**		
 
+	/**
+	 * 
 	 * @see HttpServlet#HttpServlet()
 	 */
 	public Message() {
@@ -29,27 +32,23 @@ public class Message extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
-		getmessage += request.getParameter("message");
-		
+		String user = (String) request.getAttribute("user");
+		String message=request.getParameter("message");
+		getmessage += "<br>" + user + ": " +message ;
+
 		response.getWriter().append(getmessage);
 		request.setAttribute("getmessage", getmessage);
-		
 
 		String res = "";
 		res += "<html><head></head><body> " +
 
 				"<form id='mySelect1' action='Chat.jsp'>" +
 
-				
-			"<input type='submit' onclick='getOption()' value='Write Message'>" + "</form>" +
-
-				
+				"<input type='submit' onclick='getOption()' value='Write Message'>" + "</form>" +
 
 				"</body></html>";
-		response.getWriter().append(res);
 
-		
+		response.getWriter().append(res);
 
 	}
 

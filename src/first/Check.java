@@ -43,6 +43,9 @@ public class Check extends HttpServlet {
 	 */
 	// Map<HttpSession, String> sessions = new ConcurrentHashMap<HttpSession, String>();
 	 ArrayList<String> onlines = new ArrayList<String>();
+	
+		
+	
 	// Set<String> users = new HashSet<String>();
 //	 Map<String, String> use = new ConcurrentHashMap<String, String>();
 	String user;
@@ -115,6 +118,8 @@ public class Check extends HttpServlet {
 				session.get(num).setAttribute("password", pass);
 				request.setAttribute("list", onlines);
 				request.setAttribute("session", session);
+				
+				
 			
 				request.getRequestDispatcher("List.jsp").forward(request, response);
 
