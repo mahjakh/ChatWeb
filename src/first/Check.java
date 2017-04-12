@@ -43,6 +43,8 @@ public class Check extends HttpServlet {
 	 */
 	// Map<HttpSession, String> sessions = new ConcurrentHashMap<HttpSession, String>();
 	 ArrayList<String> onlines = new ArrayList<String>();
+
+
 	
 		
 	
@@ -114,9 +116,13 @@ public class Check extends HttpServlet {
 		
 	
 					onlines.add(user);
+					
+					
 				session.get(num).setAttribute("username", user);
 				session.get(num).setAttribute("password", pass);
+			
 				request.setAttribute("list", onlines);
+
 				request.setAttribute("session", session);
 				
 				

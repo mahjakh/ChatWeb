@@ -10,7 +10,4 @@
     <servlet-name>Check</servlet-name>
     <url-pattern>/Check</url-pattern>
   </servlet-mapping>
-  
-  
-  
 </web-app>
