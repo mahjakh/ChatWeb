@@ -16,7 +16,7 @@ import javax.servlet.http.HttpSession;
 @WebServlet("/Message")
 public class Message extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	String getmessage = "";
+	String getmessage = " ";
 
 	/**
 	 * 
@@ -38,7 +38,7 @@ public class Message extends HttpServlet {
 	
 
 		String message=request.getParameter("message");
-		getmessage +=  thisuser + ": " +message ;
+		getmessage +=  thisuser + ": " +message +"\n";
 		request.setAttribute("getmessage", getmessage);
 
 		request.getRequestDispatcher("Chat.jsp").forward(request, response);

@@ -12,35 +12,34 @@
 <% 
 
 
+
 String thisuser=(String)session.getAttribute("username");
 
 
 
 session.setAttribute("thisuser", thisuser);
-String getmessage=(String)request.getAttribute("getmessage");
-System.out.print(getmessage);
+String getmessage=(String)request.getAttribute("getmessage")+" ";
+
 
 
 	%>
-	
-	
-	
-	
-
-	
-
-	
- 	<form id="message"  action="Message" method="get">
+	<p>
+	Type Here:
+	</p>
+	 	<form id="message"  action="Message" method="get">
 <textarea id="message" name="message" rows="4" cols="50">
-<%=getmessage%>
-
 </textarea>
- 
+ 	 <input type="submit" value="Send">
+	</form>	
+	
+	<p>
+	Read Here:
+	</p>
+<textarea  rows="4" cols="50">
+	<%=getmessage%>
+</textarea>
 
 
-
-	 <input type="submit" value="Send">
-	</form>
 	
 	
 </body>

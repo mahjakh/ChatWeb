@@ -1,6 +1,7 @@
 package first;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import javax.servlet.ServletException;
@@ -35,7 +36,8 @@ public class SelectedUser extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		String thisuser=(String)session.getAttribute("thisuser");
-		
+		boolean bool=true;
+		PrintWriter writer = response.getWriter();
 		
 		String []a=request.getParameterValues( "multiple" );
 		for (int i = 0; i < a.length; i++) {
@@ -52,13 +54,26 @@ public class SelectedUser extends HttpServlet {
 
 
 			if(selected.get(i).equals(thisuser)){
-		count++;
-					request.setAttribute("count", count);
+		bool=false;
 
-		request.getRequestDispatcher("Chat.jsp").forward(request, response);
 		}
-			else
-				System.out.println(thisuser+" You Are Not added to any Chat Group Yet!!");}
+		}
+			{
+			if(!bool)
+				request.getRequestDispatcher("Chat.jsp").forward(request, response);
+
+				else {
+					bool=true;
+					
+					String htmlRespone = "<html>";
+					htmlRespone += "<h2>You are not joined to any chat group!!! "  + "<br/>";		
+							
+					htmlRespone += "</html>";
+					   writer.println(htmlRespone);
+				}
+
+			}
+			
 
 	}
 

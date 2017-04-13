@@ -11,6 +11,8 @@
 
 <html>
 <%
+
+
 	ArrayList<String> list = (ArrayList<String>) request.getAttribute("list");
 
 	ArrayList<String> se = (ArrayList<String>) request.getAttribute("session");
@@ -38,16 +40,19 @@
 		<select id="multiple" name="multiple" multiple="multiple">
 			<option value="   " id="option"></option>
 			<%
+	
 				for (int i = 0; i < list.size(); i++) {
-					name = list.get(i);
+					name=list.get(i);
+					
 			%>
 			<option value="<%=name%>" id="option"><%=name%></option>
 
 			<%
-				}
+					
+			}
 			%>
 
-		</select> <input type="submit">
+		</select> <input type="submit" value="Go to chat room">
 	</form>
 
 </body>
