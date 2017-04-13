@@ -11,20 +11,16 @@
 
 <html>
 <%
-	
-ArrayList<String> list = (ArrayList<String>) request.getAttribute("list");
+	ArrayList<String> list = (ArrayList<String>) request.getAttribute("list");
 
-ArrayList<String> se = (ArrayList<String>) request.getAttribute("session");
-
-
-
-
+	ArrayList<String> se = (ArrayList<String>) request.getAttribute("session");
 
 	//	request.setAttribute("sessio", se);
 	//request.getRequestDispatcher("Chat.jsp").include(request, response);
 
 	String name = null;
-	String thisuser=list.get(list.size()-1);
+	String thisuser = list.get(list.size() - 1);
+	session.setAttribute("thisuser", thisuser);
 %>
 
 
@@ -36,19 +32,11 @@ ArrayList<String> se = (ArrayList<String>) request.getAttribute("session");
 </head>
 <body bgcolor=#f0f0f0>
 	<p id="demos"></p>
-
-
-
-
-
-
-
-
 <html>
 <body>
- 	<form action="SelectedUser" method="get">
+	<form action="SelectedUser" method="get">
 		<select id="multiple" name="multiple" multiple="multiple">
-				<option value="   " id="option">    </option>
+			<option value="   " id="option"></option>
 			<%
 				for (int i = 0; i < list.size(); i++) {
 					name = list.get(i);
@@ -58,9 +46,8 @@ ArrayList<String> se = (ArrayList<String>) request.getAttribute("session");
 			<%
 				}
 			%>
-			
-		</select> 
-			<input type="submit">
+
+		</select> <input type="submit">
 	</form>
 
 </body>
@@ -69,17 +56,14 @@ ArrayList<String> se = (ArrayList<String>) request.getAttribute("session");
 
 
 
-<% 
-
- session.setAttribute("thisuser", list.get(list.size()-1));
-
-
- %>
+	<%
+		session.setAttribute("thisuser", list.get(list.size() - 1));
+	%>
 
 
 
 
 
-	
+
 </body>
 </html>

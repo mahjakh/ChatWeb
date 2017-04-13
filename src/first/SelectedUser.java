@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * Servlet implementation class SelectedUser
@@ -20,6 +21,8 @@ public class SelectedUser extends HttpServlet {
      * @see HttpServlet#HttpServlet()
      */
 	 ArrayList<String> selected = new ArrayList<String>();
+	 int count=0;
+
     public SelectedUser() {
         super();
         // TODO Auto-generated constructor stub
@@ -30,6 +33,10 @@ public class SelectedUser extends HttpServlet {
 	 */
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		String thisuser=(String)session.getAttribute("thisuser");
+		
+		
 		String []a=request.getParameterValues( "multiple" );
 		for (int i = 0; i < a.length; i++) {
 			selected.add(a[i]);
@@ -40,9 +47,18 @@ public class SelectedUser extends HttpServlet {
 		
 
 
-		request.setAttribute("selected", selected);
+	//	request.setAttribute("selected", selected);
+		for (int i = 0; i < selected.size(); i++) {
+
+
+			if(selected.get(i).equals(thisuser)){
+		count++;
+					request.setAttribute("count", count);
 
 		request.getRequestDispatcher("Chat.jsp").forward(request, response);
+		}
+			else
+				System.out.println(thisuser+" You Are Not added to any Chat Group Yet!!");}
 
 	}
 

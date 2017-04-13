@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * Servlet implementation class Message
@@ -32,15 +33,21 @@ public class Message extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String user = (String) request.getAttribute("user");
-		String message=request.getParameter("message");
-		getmessage += "<br>" + user + ": " +message ;
+		HttpSession session = request.getSession();
+		String thisuser=(String)session.getAttribute("thisuser");
+	
 
-		response.getWriter().append(getmessage);
+		String message=request.getParameter("message");
+		getmessage +=  thisuser + ": " +message ;
 		request.setAttribute("getmessage", getmessage);
 
-		String res = "";
-		res += "<html><head></head><body> " +
+		request.getRequestDispatcher("Chat.jsp").forward(request, response);
+
+		//response.getWriter().append(getmessage);
+		//request.setAttribute("getmessage", getmessage);
+
+	//	String res = "";
+	/*	res += "<html><head></head><body> " +
 
 				"<form id='mySelect1' action='Chat.jsp'>" +
 
@@ -49,7 +56,7 @@ public class Message extends HttpServlet {
 				"</body></html>";
 
 		response.getWriter().append(res);
-
+*/
 	}
 
 	/**

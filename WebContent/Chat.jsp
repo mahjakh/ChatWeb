@@ -11,65 +11,36 @@
 <body>
 <% 
 
+
 String thisuser=(String)session.getAttribute("username");
 
 
 
+session.setAttribute("thisuser", thisuser);
+String getmessage=(String)request.getAttribute("getmessage");
+System.out.print(getmessage);
 
 
-
-
-%>
-
-	<form name="form" method="post" action="Message"
-		onsubmit="javascript:return validate();">
-
-		<table>
-			<tr>
-				<td></td>
-				<td></td>
-			</tr>
-
-			<tr>
-				<td></td>
-				<td><input type="submit" value="Read Messages"></td>
-				<td></td>
-			</tr>
-
-
-			<tr>
-				<td></td>
-				<td></td>
-			</tr>
-		</table>
-
-	</form>
-	
-	
-	<%
-	
-	
-	
-	
-	
-
-	
-ArrayList<String> selected = (ArrayList<String>) request.getAttribute("selected");
-
-for (int i = 0; i < selected.size(); i++) {
-
-
-if(selected.get(i).equals(thisuser)){
 	%>
-<textarea name="message" rows="4" cols="50">
-</textarea>
-<% 
-}
-}
-selected=null;
-%>
+	
+	
+	
+	
 
 	
+
+	
+ 	<form id="message"  action="Message" method="get">
+<textarea id="message" name="message" rows="4" cols="50">
+<%=getmessage%>
+
+</textarea>
+ 
+
+
+
+	 <input type="submit" value="Send">
+	</form>
 	
 	
 </body>
