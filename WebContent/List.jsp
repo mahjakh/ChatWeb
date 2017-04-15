@@ -11,8 +11,7 @@
 
 <html>
 <%
-
-
+	Boolean bool = (Boolean)request.getAttribute("bool");
 	ArrayList<String> list = (ArrayList<String>) request.getAttribute("list");
 
 	ArrayList<String> se = (ArrayList<String>) request.getAttribute("session");
@@ -23,6 +22,10 @@
 	String name = null;
 	String thisuser = list.get(list.size() - 1);
 	session.setAttribute("thisuser", thisuser);
+	session.setAttribute("list", list);
+
+	if (bool == false)
+		response.sendRedirect("Login.jsp");
 %>
 
 
@@ -40,16 +43,13 @@
 		<select id="multiple" name="multiple" multiple="multiple">
 			<option value="   " id="option"></option>
 			<%
-	
 				for (int i = 0; i < list.size(); i++) {
-					name=list.get(i);
-					
+					name = list.get(i);
 			%>
 			<option value="<%=name%>" id="option"><%=name%></option>
 
 			<%
-					
-			}
+				}
 			%>
 
 		</select> <input type="submit" value="Go to chat room">
@@ -68,6 +68,11 @@
 
 
 
+	<form id="message" action="Logout" method="get">
+		<div style="position: absolute; top: 0; right: 0;">
+			<input type="submit" value="LogOut">
+		</div>
+	</form>
 
 
 </body>
