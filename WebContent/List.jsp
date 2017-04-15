@@ -39,12 +39,31 @@
 	<p id="demos"></p>
 <html>
 <body>
+
+	<%
+	ArrayList<String> arr=new ArrayList<String>();
+
+boolean b=true;
+for(int i = 0; i < list.size(); i++)
+{b=true;
+	for(int ii = i+1; ii < list.size(); ii++)
+	{
+
+	if(list.get(i).equals(list.get(ii))){
+		b=false;}
+		
+		}
+if(b==true){
+	arr.add(list.get(i));}
+}
+
+%>
 	<form action="SelectedUser" method="get">
 		<select id="multiple" name="multiple" multiple="multiple">
 			<option value="   " id="option"></option>
 			<%
-				for (int i = 0; i < list.size(); i++) {
-					name = list.get(i);
+				for (int i = 0; i < arr.size(); i++) {
+					name = arr.get(i);
 			%>
 			<option value="<%=name%>" id="option"><%=name%></option>
 

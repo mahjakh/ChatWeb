@@ -109,9 +109,9 @@ public class Check extends HttpServlet {
 					booll = false;
 
 			}
-			if (booll) {
+		//	if (booll) {
 				onlines.add(user);
-			}
+			//}
 
 			session.get(num).setAttribute("username", user);
 			session.get(num).setAttribute("password", pass);
