@@ -7,6 +7,9 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
 </head>
 <body>
 <% 
@@ -39,7 +42,14 @@ String getmessage=(String)request.getAttribute("getmessage")+" ";
 	<%=getmessage%>
 </textarea>
 
-
+<div onclick="$('#msg').val($('#msg').val() + '&#128516;');"
+              id="emoji" class="btn btn-default">&#128516;</div>
+            <div onclick="$('#msg').val($('#msg').val() + '&#128521;');"
+              id="emoji" class="btn btn-default">&#128521;</div>
+            <div onclick="$('#msg').val($('#msg').val() + '&#128525;');"
+              id="emoji" class="btn btn-default">&#128525;</div>
+            <div onclick="$('#msg').val($('#msg').val() + '&#128530;');"
+              id="emoji" class="btn btn-default">&#128530;</div>
 
 
    
