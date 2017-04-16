@@ -1,5 +1,6 @@
 package first;
 
+import java.io.File;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -8,16 +9,27 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
+import javax.annotation.Resource;
+import javax.imageio.spi.ServiceRegistry;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import org.hibernate.HibernateException;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.Configuration;
+import org.hibernate.mapping.List;
 
 /**
  * Servlet implementation class ChooseChat
@@ -58,11 +70,7 @@ public class Check extends HttpServlet {
 		user = request.getParameter("user");
 		pass = request.getParameter("pass");
 
-		/*
-		 * for (int i = 0; i < 5; i++) { users.add(i + ""); use.put(i + "", i +
-		 * ""); }
-		 */
-		// ******
+	
 
 		try {
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
@@ -86,7 +94,7 @@ public class Check extends HttpServlet {
 		}
 		ResultSet rs = null;
 		try {
-			rs = st.executeQuery("select * from users where username='" + user + "' and password='" + pass + "'");
+			rs = st.executeQuery("select * from users");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -94,6 +102,7 @@ public class Check extends HttpServlet {
 		int count = 0;
 		try {
 			while (rs.next()) {
+				if(rs.getString("username").equals(user) && rs.getString("password").equals(pass))
 				count++;
 
 			}
@@ -101,20 +110,15 @@ public class Check extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		if (count > 0) {
+		
+	if (count > 0) {
 
-			boolean booll = true;
-			for (int j = 0; j < onlines.size(); j++) {
-				if (onlines.get(j).equals(user))
-					booll = false;
-
-			}
-		//	if (booll) {
+		
 				onlines.add(user);
-			//}
-
-			session.get(num).setAttribute("username", user);
-			session.get(num).setAttribute("password", pass);
+			
+		
+		session.get(num).setAttribute("username", user);
+		session.get(num).setAttribute("password", pass);
 
 			request.setAttribute("list", onlines);
 
@@ -127,47 +131,8 @@ public class Check extends HttpServlet {
 			num++;
 		}
 	}
-	/*
-	 * else { String log = ""; log += "<html><body><form action='Choosechat'>" +
-	 * " <center><fieldset>" +
-	 * " <p id='demo'> Wrong Password </p></fieldset></center></form></body></html>"
-	 * ; response.getWriter().append(log);
-	 * System.out.println("Incorrect password"); }
-	 * 
-	 * }
-	 * 
-	 * else { String log = ""; log += "<html><body><form action='Choosechat'>" +
-	 * " <center><fieldset>" +
-	 * " <p id='demo'> This username has not been registered yet! </p></fieldset></center></form></body></html>"
-	 * ; response.getWriter().append(log); System.out.println("not EXIST"); }
-	 */
-	// ***********8
+	
 
-	// PrintWriter out = response.getWriter();
-	//
-	// String docType =
-	// "<!doctype html public \"-//w3c//dtd html 4.0 " +
-	// "transitional//en\">\n";
-	// out.println(docType +
-	// "<html>\n" +
-	// "<head><title>" + "Online users" + "</title></head>\n" +
-	// "<body bgcolor=\"#f0f0f0\">\n" +
-	// "<h1 align=\"center\">" + "Online users" + "</h1>\n" +
-	//
-	// "<table border=\"1\" align=\"center\">\n" +
-	// "<tr bgcolor=\"#949494\">\n" +
-	// " <th>UserName</th>\n" +
-	// "<tr>\n" +
-	// // for(String online : onlines){
-	// " <td>" +onlines.get(0) + "</td></tr>\n" +
-	// "<tr>\n" +
-	// // }
-	// "</body></html>");
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
